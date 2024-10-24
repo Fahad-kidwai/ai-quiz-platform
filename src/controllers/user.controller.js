@@ -1,9 +1,9 @@
-import { json } from "express";
-import { User } from "../models/user.model";
-import { ApiError } from "../utils/apiErrors";
-import { ApiResponse } from "../utils/apiResponse";
+// import { json } from "express";
+import { User } from "../models/user.model.js";
+import { ApiError } from "../utils/apiErrors.js";
+import { ApiResponse } from "../utils/apiResponse.js";
 import jwt from "jsonwebtoken";
-import { asyncHandler } from "../utils/asyncHandler";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 const generateAccessAndRefereshTokens = async (userId) => {
   try {
@@ -28,8 +28,7 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Fill all the fields");
   }
 
-  const existedUser = User.findOne({ email });
-
+  const existedUser = await User.findOne({ email: email });
   if (existedUser) throw new ApiError(409, "User with email already existed");
 
   const user = await User.create({
@@ -63,23 +62,27 @@ const loginUser = asyncHandler(async (req, res) => {
   if (!email && !password) {
     throw new ApiError(400, "Credentiantials are required");
   }
-  const user = User.findOne({ email });
+  const user = await User.findOne({ email });
 
-  const isPasswordValid = await User.isPasswordCorrect(password);
+  const isPasswordValid = await user.isPasswordCorrect(password);
 
   if (!isPasswordValid) throw new ApiError(401, "incorrect password");
 
-  const { refreshToken, accessToken } = generateAccessAndRefereshTokens(
+  const { refreshToken, accessToken } = await generateAccessAndRefereshTokens(
     user._id
   );
 
-  user.refreshToken = refreshToken;
-  user.accessToken = accessToken;
+  user.accessToken = accessToken; // did not fetch user from db to minimize time
+
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
 
   return res
     .status(200)
-    .cookie("refreshToken", refreshToken)
-    .cookie("accesstoken", accessToken)
+    .cookie("refreshToken", refreshToken, options)
+    .cookie("accesstoken", accessToken, options)
     .json(
       new ApiResponse(
         200,
@@ -145,6 +148,12 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
   }
 });
 
+const getCurrentUser = asyncHandler(async (req, res) => {
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "User fetched successfully"));
+});
+
 const changeCurrentPassword = asyncHandler(async (req, res) => {});
 
 export {
@@ -153,4 +162,5 @@ export {
   logoutUser,
   refreshAccessToken,
   changeCurrentPassword,
+  getCurrentUser,
 };

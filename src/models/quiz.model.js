@@ -19,4 +19,6 @@ const quizSchema = new Schema(
   { timestamps: true }
 );
 
+// quizSchema.methods.
+
 export const Quiz = mongoose.model("Quiz", quizSchema);

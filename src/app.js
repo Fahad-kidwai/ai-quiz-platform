@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { verifyJwt } from "./middlewares/auth.middleware";
 
 const app = express();
 
@@ -20,7 +19,9 @@ app.use(cookieParser());
 //Routes..
 //Import Routes
 import userRouter from "./routes/user.routes.js";
+import quizRouter from "./routes/quiz.router.js";
 
 app.use("/api/v1/users/", userRouter);
+app.use("/api/v1/quiz", quizRouter);
 
 export { app };
