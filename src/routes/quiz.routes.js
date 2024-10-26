@@ -9,7 +9,7 @@ import {
 const router = Router();
 
 router.route("/create").post(verifyJwt, createQuiz);
-router.route("/get-by-id:id").get(verifyJwt, getQuizById);
+router.route("/get-by-id/:id").get(verifyJwt, getQuizById);
 router.route("/get-by-author").get(verifyJwt, getQuizzesByAuthor);
 
 export default router;
