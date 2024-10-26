@@ -8,8 +8,8 @@ import {
 
 const router = Router();
 
-router.route("/create-quiz").post(verifyJwt, createQuiz);
-router.route("/get-quiz:id").get(verifyJwt, getQuizById);
-router.route("/get-quiz-by-author").get(verifyJwt, getQuizzesByAuthor);
+router.route("/create").post(verifyJwt, createQuiz);
+router.route("/get-by-id:id").get(verifyJwt, getQuizById);
+router.route("/get-by-author").get(verifyJwt, getQuizzesByAuthor);
 
 export default router;

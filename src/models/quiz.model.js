@@ -33,7 +33,7 @@ quizSchema.methods.getTotalQuestions = async function () {
   return questionCount;
 };
 
-quizSchema.statics.findByTopic = function (topic) {
+quizSchema.static.findByTopic = function (topic) {
   return this.find({ topic });
 };
 

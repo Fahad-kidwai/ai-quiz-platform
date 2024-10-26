@@ -17,16 +17,19 @@ const questionSchema = new Schema(
     ],
     correctAnswer: {
       type: String,
-      validate: {
-        validator: function (v) {
-          this.options.includes(v);
-        },
-        message: "Correct answer must be one of the options",
-      },
+      // validate: {
+      //   validator: function (v) {
+      //     this.options.includes(v);
+      //   },
+      //   message: "Correct answer must be one of the options",
+      // },
+      required: [true, "Correct answer is required"],
     },
   },
   { timestamps: true }
 );
+
+
 
 
 export const Question = mongoose.model("Question", questionSchema);
