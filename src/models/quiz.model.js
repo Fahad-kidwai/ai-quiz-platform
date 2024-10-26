@@ -16,11 +16,13 @@ const quizSchema = new Schema(
       default: "Medium",
     },
   },
-  { timestamps: true }
+  { timestamps: true },
+  { toJSON: { virtual: true } },
+  { toObject: { virtual: true } }
 );
 
 quizSchema.virtual("allQuestions", {
-  ref: "Questions", // The model to populate
+  ref: "Question", // The model to populate
   localField: "_id", // The field in the quiz schema (foreign key)
   foreignField: "quizId", // The field in the User schema (primary key)
 });

@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { verifyJwt } from "../middlewares/auth.middleware";
+import { verifyJwt } from "../middlewares/auth.middleware.js";
 import {
   createQuestion,
   getAllQuestionById,
-} from "../controllers/question.controller";
+} from "../controllers/question.controller.js";
 
 const router = Router();
 

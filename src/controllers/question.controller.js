@@ -1,7 +1,7 @@
-import { Question } from "../models/question.model";
-import { ApiError } from "../utils/apiErrors";
-import { ApiResponse } from "../utils/apiResponse";
-import { asyncHandler } from "../utils/asyncHandler";
+import { Question } from "../models/question.model.js";
+import { ApiError } from "../utils/apiErrors.js";
+import { ApiResponse } from "../utils/apiResponse.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 const createQuestion = asyncHandler(async (req, res) => {
   const { quizId, text, options, correctAnswer } = req.body;

@@ -7,12 +7,12 @@ const questionSchema = new Schema(
     options: [
       {
         type: String,
-        validate: {
-          validator: function (v) {
-            return v.length >= 2;
-          },
-          message: "A question must have at least two options.",
-        },
+        // validate: {
+        //   validator: function (v) {
+        //     return v.length >= 2;
+        //   },
+        //   message: "A question must have at least two options.",
+        // }, CHECK VALIDATION
       },
     ],
     correctAnswer: {

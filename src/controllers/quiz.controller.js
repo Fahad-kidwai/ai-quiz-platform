@@ -8,7 +8,6 @@ const createQuiz = asyncHandler(async (req, res) => {
   if ([title, topic].some((field) => !field)) {
     throw new ApiError(400, "Fill all the fields");
   }
-
   const quiz = await Quiz.create({
     title,
     author: req.user._id,
@@ -23,8 +22,9 @@ const createQuiz = asyncHandler(async (req, res) => {
 
 const getQuizById = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const quiz = await Quiz.findById(id).populate("allQuestions").exec();
-  console.log("quizq", quiz);
+  const quiz = await Quiz.findById(id).populate("allQuestions"); // CPopulate does not show in response
+  // console.log(quiz.allQuestions);
+  // console.log("quiz", quiz);
   if (!quiz) throw new ApiError(404, "Quiz not found");
 
   return res
@@ -34,7 +34,6 @@ const getQuizById = asyncHandler(async (req, res) => {
 
 const getQuizzesByAuthor = asyncHandler(async (req, res) => {
   const id = req.user._id;
-
   const quizzes = await Quiz.find({ author: id });
 
   if (!quizzes.length) {

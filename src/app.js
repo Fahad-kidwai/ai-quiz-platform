@@ -19,7 +19,7 @@ app.use(cookieParser());
 //Routes..
 //Import Routes
 import userRouter from "./routes/user.routes.js";
-import quizRouter from "./routes/quiz.router.js";
+import quizRouter from "./routes/quiz.routes.js";
 import questionRouter from "./routes/question.routes.js";
 
 app.use("/api/v1/users", userRouter);
