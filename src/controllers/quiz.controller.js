@@ -22,9 +22,7 @@ const createQuiz = asyncHandler(async (req, res) => {
 
 const getQuizById = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const quiz = await Quiz.findById(id).populate("allQuestions"); // CPopulate does not show in response
-  // console.log(quiz.allQuestions);
-  // console.log("quiz", quiz);
+  const quiz = await Quiz.findById(id).populate("allQuestions"); // Populate does not show in postman response
   if (!quiz) throw new ApiError(404, "Quiz not found");
 
   return res

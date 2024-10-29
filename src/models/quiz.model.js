@@ -27,6 +27,13 @@ quizSchema.virtual("allQuestions", {
   foreignField: "quizId", // The field in the User schema (primary key)
 });
 
+quizSchema.virtual("questionCount", {
+  ref: "Question",
+  localField: "_id",
+  foreignField: "quizId",
+  count: true, // this will only return the count of documents
+});
+
 // quizSchema.methods.
 quizSchema.methods.getTotalQuestions = async function () {
   const questionCount = await mongoose.model("Question").countDocuments({

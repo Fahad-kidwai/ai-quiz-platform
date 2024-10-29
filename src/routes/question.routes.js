@@ -1,13 +1,15 @@
 import { Router } from "express";
 import { verifyJwt } from "../middlewares/auth.middleware.js";
 import {
-  createQuestion,
+  addMultipleQuestions,
+  addQuestion,
   getAllQuestionById,
 } from "../controllers/question.controller.js";
 
 const router = Router();
 
-router.route("/create").post(verifyJwt, createQuestion);
+router.route("/add").post(verifyJwt, addQuestion);
+router.route("/add-multiple").post(verifyJwt, addMultipleQuestions);
 router.route("/get-all-questions/:quizId").get(verifyJwt, getAllQuestionById);
 
 export default router;
