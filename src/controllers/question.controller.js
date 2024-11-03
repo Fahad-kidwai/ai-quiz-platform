@@ -65,8 +65,8 @@ const getAllQuestionById = asyncHandler(async (req, res) => {
 });
 
 const verifyAnswer = asyncHandler(async (req, res) => {
-  const { questioId, answer } = req.body;
-  const question = Question.findById(questioId);
+  const { questionId, answer } = req.body;
+  const question = Question.findById(questionId);
   if (!question) throw new ApiError(404, "Question not found");
   const isCorrect = question.isCorrectAnswer(answer);
 

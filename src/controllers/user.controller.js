@@ -74,6 +74,9 @@ const loginUser = asyncHandler(async (req, res) => {
 
   user.accessToken = accessToken; // did not fetch user from db to minimize time
 
+  user.password = undefined; // hide password in user respone
+  user.refreshToken = undefined;
+
   const options = {
     httpOnly: true,
     secure: true,
